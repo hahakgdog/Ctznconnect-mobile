@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/complains"
+    android:background="@color/lightblue"
+    tools:context=".Complains">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:backgroundTint="@color/blue">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/leftButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/backbutton"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:layout_gravity="start|center_vertical"
+                android:padding="8dp"
+                />
+
+            <TextView
+                android:id="@+id/toolbarTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Submit a Complaint"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_centerInParent="true"/>
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <!-- Scrollable content BELOW the toolbar -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:layout_marginBottom="100dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="2dp"
+            android:paddingBottom="50dp"
+            tools:ignore="UseSwitchCompatOrMaterialXml">
+
+        <TextView
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:layout_marginLeft="24dp"
+        android:textSize="14dp"
+        android:text="Please fill out the form below to report your issue or provide feedback."
+        android:textStyle="italic"/>
+
+    <!-- Address -->
+    <TextView
+        android:id="@+id/adress_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="8dp"
+        android:text="Address"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/sitio_subdivision"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:text="Sitio/Subdivision"
+        android:layout_marginLeft="30dp"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <!-- Sitio Subdivision -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardElevation="2dp"
+        android:radius="250dp"
+        app:cardCornerRadius="25dp"
+        app:strokeColor="@color/black"
+        android:layout_marginTop="10dp"
+        app:strokeWidth="1dp"
+        android:layout_gravity="center">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+
+            <AutoCompleteTextView
+                android:id="@+id/sitioSubdivisionAutoComplete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Type Sitio/Subdivision"
+                android:padding="3dp"
+                android:textSize="14dp"
+                android:background="@null"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/streetlabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Street"
+        android:layout_marginLeft="30dp"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <!-- Street  -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardElevation="2dp"
+        android:radius="250dp"
+        app:cardCornerRadius="25dp"
+        app:strokeColor="@color/black"
+        app:strokeWidth="1dp"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+
+            <AutoCompleteTextView
+                android:id="@+id/street"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Type your street"
+                android:padding="3dp"
+                android:textSize="14dp"
+                android:background="@null"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- House/Unit  -->
+
+    <TextView
+        android:id="@+id/houseunitlabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="House No./Unit No."
+        android:layout_marginLeft="30dp"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardElevation="2dp"
+        android:radius="250dp"
+        app:cardCornerRadius="25dp"
+        app:strokeColor="@color/black"
+        app:strokeWidth="1dp"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <AutoCompleteTextView
+                android:id="@+id/houseunit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Type your House / Unit"
+                android:padding="3dp"
+                android:textSize="14dp"
+                android:background="@null"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Complain Details -->
+    <TextView
+        android:id="@+id/complaindetails_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Complain Details"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/committee_involve"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:text="Committee Involve"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="220dp"
+            android:layout_height="40dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardElevation="2dp"
+            android:radius="250dp"
+            app:cardCornerRadius="25dp"
+            app:strokeColor="@color/black"
+            android:layout_marginTop="-30dp"
+            android:layout_marginLeft="60dp"
+            app:strokeWidth="1dp"
+            android:layout_gravity="center">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+
+            <Spinner
+                android:id="@+id/committee"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="1dp"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+
+    <TextView
+        android:id="@+id/complain_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Complain:"
+        android:layout_marginLeft="30dp"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardElevation="2dp"
+        android:radius="250dp"
+        app:cardCornerRadius="25dp"
+        app:strokeColor="@color/black"
+        android:layout_marginTop="10dp"
+        app:strokeWidth="1dp"
+        android:layout_gravity="center">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+
+            <Spinner
+                android:id="@+id/complaint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2dp"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+            <!-- Description of the Complaint -->
+            <TextView
+                android:id="@+id/complaintdescription_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Description of the Complaint:"
+                android:layout_marginLeft="30dp"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="350dp"
+                android:layout_height="100dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardElevation="2dp"
+                android:radius="200dp"
+                app:cardCornerRadius="25dp"
+                app:strokeColor="@color/black"
+                android:layout_marginTop="10dp"
+                app:strokeWidth="1dp"
+                android:layout_gravity="center">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="10dp"/>
+
+                <EditText
+                    android:id="@+id/complaintdescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter complaint"
+                    android:padding="10dp"
+                    android:textSize="14dp"
+                    android:background="@null"/>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Date Picker -->
+            <TextView
+                android:id="@+id/dateofincident_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Date of Incident:"
+                android:layout_marginLeft="30dp"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <!-- Date Picker -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="220dp"
+                android:layout_height="40dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardElevation="2dp"
+                app:cardCornerRadius="25dp"
+                app:strokeColor="@color/black"
+                android:layout_marginTop="-30dp"
+                android:layout_marginLeft="60dp"
+                app:strokeWidth="1dp"
+                android:layout_gravity="center">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <EditText
+                        android:id="@+id/datePicker"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Select Date"
+                        android:textSize="14dp"
+                        android:background="@null"
+                        android:focusable="false"
+                        android:clickable="true"/>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+            <!-- Time Picker -->
+            <TextView
+                android:id="@+id/timeofincident_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Time of Incident:"
+                android:layout_marginLeft="30dp"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="220dp"
+                android:layout_height="40dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardElevation="2dp"
+                app:cardCornerRadius="25dp"
+                app:strokeColor="@color/black"
+                android:layout_marginTop="-30dp"
+                android:layout_marginLeft="60dp"
+                app:strokeWidth="1dp"
+                android:layout_gravity="center">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <EditText
+                        android:id="@+id/timePicker"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Select Time"
+                        android:textSize="14dp"
+                        android:background="@null"
+                        android:focusable="false"
+                        android:clickable="true"/>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Automated Pinpoint -->
+            <TextView
+                android:id="@+id/pinpoint_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="Automated Pinpoint"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <com.google.android.gms.maps.MapView
+                android:id="@+id/mapView"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="13dp"
+                android:paddingBottom="10dp"
+                android:layout_width="380dp"
+                android:layout_height="400dp" />
+
+            <!-- Photo -->
+            <TextView
+                android:id="@+id/takephoto_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:paddingBottom="10dp"
+                android:text="Required for verification purposes:"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imagePreview"
+                android:layout_width="380dp"
+                android:layout_height="250dp"
+                android:layout_marginLeft="13dp"
+                android:layout_marginTop="12dp"
+                android:scaleType="centerCrop"
+                android:contentDescription="Photo Preview" />
+
+
+            <Button
+                android:id="@+id/btnTakePhoto"
+                android:layout_width="380dp"
+                android:layout_height="50dp"
+                android:text="Take a Photo"
+                android:radius="50dp"
+                app:cornerRadius="50dp"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center"
+                android:backgroundTint="#1C4067"
+                android:textColor="#FFFFFF"/>
+
+            <Switch
+                android:id="@+id/switchAnonymous"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:text="Anonymous"
+                android:checked="false"/>
+
+            <Button
+                android:id="@+id/submit"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:text="Submit"
+                android:radius="50dp"
+                app:cornerRadius="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                android:backgroundTint="#1C4067"
+                android:textColor="#FFFFFF"/>
+
+            <TextView
+                android:layout_width="360dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="24dp"
+                android:textAlignment="center"
+                android:textSize="14dp"
+                android:text="Your information will be kept confidential."
+                android:textStyle="italic"/>
+
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>

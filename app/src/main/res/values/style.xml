@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Custom FAB style -->
+    <style name="NoRippleFab" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="rippleColor">@android:color/transparent</item>
+        <item name="elevation">8dp</item>
+        <item name="hoveredFocusedTranslationZ">0dp</item>
+        <item name="pressedTranslationZ">0dp</item>
+    </style>
+</resources>

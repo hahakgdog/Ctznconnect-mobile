@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lightblue"
+    tools:context=".MainActivity">
+
+    <!-- Main content -->
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabComplain"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_margin="12dp"
+        android:src="@drawable/ic_complain"
+        android:backgroundTint="@android:color/white"
+        android:tint="@android:color/holo_red_dark"
+        android:contentDescription="Complain"
+        app:layout_anchor="@id/bottomAppBar"
+        app:layout_anchorGravity="center"
+        app:maxImageSize="48dp"
+        style="@style/NoRippleFab"/>
+    <!-- BottomAppBar (base) -->
+
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottomAppBar"
+        android:layout_width="match_parent"
+        android:layout_height= "80dp"
+        android:layout_gravity="bottom"
+        android:backgroundTint="@color/blue"
+        app:fabCradleMargin="10dp"
+        app:fabCradleRoundedCornerRadius="32dp"
+        app:fabAlignmentMode="center"
+        app:hideOnScroll="false"
+        app:backgroundTintMode="src_in" />
+
+    <!-- BottomNavigationView overlay (transparent BG) -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:elevation="0dp"
+        android:layout_gravity="bottom"
+        android:background="@android:color/transparent"
+        app:menu="@menu/bottom_navbar"
+        app:itemIconTint="@color/white"
+        app:itemTextColor="@color/white"
+        app:labelVisibilityMode="selected" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
