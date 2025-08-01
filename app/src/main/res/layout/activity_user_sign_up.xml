@@ -29,7 +29,68 @@
         android:layout_gravity="center"
         android:layout_marginTop="10dp"/>
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardElevation="2dp"
+        android:radius="250dp"
+        app:cardCornerRadius="12dp"
+        app:strokeColor="@color/black"
+        app:strokeWidth="1dp"
+        android:layout_marginTop="50dp">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+
+            <EditText
+                android:id="@+id/firstName"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="First Name"
+                android:inputType="textPersonName"
+                android:paddingLeft="8dp"
+                android:textColorHint="@color/gray"
+                android:textSize="16dp"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardElevation="2dp"
+        android:radius="250dp"
+        app:cardCornerRadius="12dp"
+        app:strokeColor="@color/black"
+        app:strokeWidth="1dp"
+        android:layout_marginTop="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+
+            <EditText
+                android:id="@+id/middleName"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="Middle Name"
+                android:inputType="textPersonName"
+                android:paddingLeft="8dp"
+                android:textColorHint="@color/gray"
+                android:textSize="16dp"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:layout_width="350dp"
@@ -48,61 +109,19 @@
             android:orientation="horizontal"
             android:padding="10dp">
 
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/email"/>
-
             <EditText
-                android:id="@+id/email"
+                android:id="@+id/surname"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@null"
-                android:hint="Email"
-                android:inputType="textEmailAddress"
+                android:hint="Surname"
+                android:inputType="textPersonName"
                 android:paddingLeft="8dp"
                 android:textColorHint="@color/gray"
                 android:textSize="16dp"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="350dp"
-        android:layout_height="50dp"
-        app:cardBackgroundColor="@color/white"
-        app:cardElevation="2dp"
-        android:radius="250dp"
-        app:cardCornerRadius="14dp"
-        app:strokeColor="@color/black"
-        app:strokeWidth="1dp"
-        android:layout_marginTop="30dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:padding="10dp">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/email"/>
-
-            <EditText
-                android:id="@+id/retype_email"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@null"
-                android:hint="Retype Email"
-                android:inputType="textEmailAddress"
-                android:paddingLeft="8dp"
-                android:textColorHint="@color/gray"
-                android:textSize="16dp"/>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
     <androidx.cardview.widget.CardView
         android:layout_width="350dp"
         android:layout_height="50dp"
@@ -112,7 +131,7 @@
         app:cardCornerRadius="12dp"
         app:strokeColor="@color/black"
         app:strokeWidth="1dp"
-        android:layout_marginTop="30dp">
+        android:layout_marginTop="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -120,55 +139,14 @@
             android:orientation="horizontal"
             android:padding="10dp">
 
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="23dp"
-                android:src="@drawable/password"/>
-
             <EditText
-                android:id="@+id/password"
+                android:id="@+id/contactNumber"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@null"
-                android:hint="Password"
-                android:inputType="textPassword"
-                android:paddingLeft="8dp"
-                android:textColorHint="@color/gray"
-                android:textSize="16dp"/>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="350dp"
-        android:layout_height="50dp"
-        app:cardBackgroundColor="@color/white"
-        app:cardElevation="2dp"
-        android:radius="250dp"
-        app:cardCornerRadius="12dp"
-        app:strokeColor="@color/black"
-        app:strokeWidth="1dp"
-        android:layout_marginTop="30dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:padding="10dp">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="23dp"
-                android:src="@drawable/password"/>
-
-            <EditText
-                android:id="@+id/retype_password"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@null"
-                android:hint="Retype Password"
-                android:inputType="textPassword"
+                android:hint="Contact Number"
+                android:inputType="number"
                 android:paddingLeft="8dp"
                 android:textColorHint="@color/gray"
                 android:textSize="16dp"/>
@@ -181,38 +159,12 @@
         android:layout_height="50dp"
         android:backgroundTint="@color/blue"
         android:padding="10dp"
-        android:text="Sign Up"
+        android:text="Next"
         android:textColor="@android:color/white"
         android:textSize="16dp"
         android:textStyle="bold"
         app:cornerRadius="50dp"
         android:layout_marginTop="40dp"
         android:layout_gravity="center_horizontal" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp"
-        android:gravity="center_horizontal">
-
-        <TextView
-            android:id="@+id/haveaccount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Already have an account?"
-            android:textColor="@color/black"
-            android:textSize="16dp"
-            android:layout_marginEnd="8dp" /> <!-- Optional margin for spacing between texts -->
-
-        <TextView
-            android:id="@+id/login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Login"
-            android:textSize="16dp"
-            android:textColor="@color/blue"
-            android:textStyle="bold" />
-    </LinearLayout>
 
 </LinearLayout>

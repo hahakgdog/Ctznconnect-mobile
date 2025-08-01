@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -13,29 +18,26 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CitizenConnect"
         tools:targetApi="31">
-
+        <activity
+            android:name=".user_sign_up"
+            android:exported="false" />
         <!-- Set LoginActivity as the launcher activity -->
         <!-- Other activities -->
         <activity android:name=".MainActivity" />
-        <activity android:name=".Login"
+        <activity
+            android:name=".Login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".Home" />
-        <activity android:name=".SignUp" />
-
-        <!-- Correct way to add the API key -->
+        <activity android:name=".SignUp" /> <!-- Correct way to add the API key -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyA4Sox_x74vgf1NLS9YJavgpQDxQJv3O1k" />
-
     </application>
-
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-feature android:name="android.hardware.camera" android:required="true" />
 
 </manifest>
