@@ -17,17 +17,16 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabComplain"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         android:layout_margin="12dp"
-        android:src="@drawable/ic_complain"
+        android:src="@drawable/ic_alert"
         android:backgroundTint="@android:color/white"
-        android:tint="@android:color/holo_red_dark"
         android:contentDescription="Complain"
         app:layout_anchor="@id/bottomAppBar"
         app:layout_anchorGravity="center"
-        app:maxImageSize="48dp"
-        style="@style/NoRippleFab"/>
+        app:maxImageSize="30dp"
+        app:tint="@null"/>
     <!-- BottomAppBar (base) -->
 
     <com.google.android.material.bottomappbar.BottomAppBar
@@ -46,13 +45,13 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        app:elevation="0dp"
+        android:layout_height="82dp"
         android:layout_gravity="bottom"
         android:background="@android:color/transparent"
-        app:menu="@menu/bottom_navbar"
+        app:elevation="0dp"
         app:itemIconTint="@color/white"
         app:itemTextColor="@color/white"
-        app:labelVisibilityMode="selected" />
+        app:labelVisibilityMode="selected"
+        app:menu="@menu/bottom_navbar" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

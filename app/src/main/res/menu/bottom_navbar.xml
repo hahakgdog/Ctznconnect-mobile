@@ -17,7 +17,7 @@
         android:enabled="false"/>
 
     <item
-        android:id="@+id/announcement"
+        android:id="@+id/working"
         android:icon="@drawable/ic_announcement"
         android:title="News" />
 
@@ -25,7 +25,6 @@
         android:id="@+id/notification"
         android:icon="@drawable/ic_notification"
         android:title="Notification" />
-
 
 
 </menu>

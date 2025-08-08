@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/home"
+    android:id="@+id/working"
     android:background="@color/white"
-    tools:context=".Home">
+    tools:context=".workinghome">
+    <!-- Background image limited to 400dp height -->
 
     <ImageView
         android:id="@+id/background_image"
@@ -776,7 +777,6 @@
         </LinearLayout>
 
     </ScrollView>
-
 
 
 </FrameLayout>

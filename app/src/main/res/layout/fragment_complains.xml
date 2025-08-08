@@ -8,7 +8,6 @@
     android:background="@color/lightblue"
     tools:context=".Complains">
 
-
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -23,15 +22,14 @@
 
             <ImageButton
                 android:id="@+id/leftButton"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="10dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="15dp"
                 android:src="@drawable/backbutton"
                 android:background="@null"
                 android:scaleType="fitCenter"
                 android:layout_gravity="start|center_vertical"
-                android:padding="8dp"
-                />
+                android:padding="8dp"/>
 
             <TextView
                 android:id="@+id/toolbarTitle"
@@ -53,7 +51,47 @@
         android:fillViewport="true"
         android:layout_marginBottom="100dp">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="2dp"
+        android:paddingBottom="10dp"
+        tools:ignore="UseSwitchCompatOrMaterialXml">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="65dp">
+
+            <TextView
+                android:id="@+id/tabUrgent"
+                android:layout_width="240dp"
+                android:layout_height="42dp"
+                android:layout_marginEnd="-20dp"
+                android:gravity="center"
+                android:text="Urgent"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:background="@drawable/tab_urgent"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:id="@+id/tabNonUrgent"
+                android:layout_width="240dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="140dp"
+                android:gravity="center"
+                android:text="Non-Urgent"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:background="@drawable/tab_nonurgent"
+                android:textColor="@android:color/white" />
+        </FrameLayout>
+
         <LinearLayout
+            android:id="@+id/emergency_section"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -61,165 +99,323 @@
             android:paddingBottom="50dp"
             tools:ignore="UseSwitchCompatOrMaterialXml">
 
-        <TextView
-        android:layout_width="360dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
-        android:layout_marginLeft="24dp"
-        android:textSize="14dp"
-        android:text="Please fill out the form below to report your issue or provide feedback."
-        android:textStyle="italic"/>
-
-    <!-- Address -->
-    <TextView
-        android:id="@+id/adress_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="8dp"
-        android:text="Address"
-        android:layout_marginLeft="20dp"
-        android:textColor="@color/black"
-        android:textSize="25sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/sitio_subdivision"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="0dp"
-        android:text="Sitio/Subdivision"
-        android:layout_marginLeft="30dp"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        android:textStyle="bold" />
-
-    <!-- Sitio Subdivision -->
-    <androidx.cardview.widget.CardView
-        android:layout_width="350dp"
-        android:layout_height="50dp"
-        app:cardBackgroundColor="@color/white"
-        app:cardElevation="2dp"
-        android:radius="250dp"
-        app:cardCornerRadius="25dp"
-        app:strokeColor="@color/black"
-        android:layout_marginTop="10dp"
-        app:strokeWidth="1dp"
-        android:layout_gravity="center">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:padding="10dp">
-
-
-            <AutoCompleteTextView
-                android:id="@+id/sitioSubdivisionAutoComplete"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Type Sitio/Subdivision"
-                android:padding="3dp"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                android:paddingLeft="30dp"
+                android:paddingEnd="30dp">
+
+                <TextView
+                    android:id="@+id/emergency_detail"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Emergency Details"
+                    android:textColor="@color/blue"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <Switch
+                    android:id="@+id/emergency_switchAnonymous"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:text="Anonymous"
+                    android:checked="false"
+                    android:layout_gravity="center_vertical"/>
+
+            </LinearLayout>
+            <TextView
+                android:id="@+id/emergency_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Complain:"
+                android:layout_marginLeft="30dp"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardElevation="2dp"
+                android:radius="250dp"
+                app:cardCornerRadius="10dp"
+                app:strokeColor="@color/black"
+                android:layout_marginTop="10dp"
+                app:strokeWidth="1dp"
+                android:layout_gravity="center">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+                    <Spinner
+                        android:id="@+id/emergency_complain"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Photo -->
+            <TextView
+                android:id="@+id/takephoto_emergency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:paddingBottom="10dp"
+                android:text="Required for verification purposes:"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imagePreviewEmergency"
+                android:layout_width="380dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="13dp"
+                android:layout_marginTop="12dp"
+                android:scaleType="centerCrop"
+                android:contentDescription="Photo Preview" />
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnTakePhoto_emergency"
+                android:layout_width="380dp"
+                android:layout_height="50dp"
+                android:text="Take a Photo"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center"
+                app:cornerRadius="50dp"
+                app:icon="@drawable/ic_camera"
+                app:iconGravity="textStart"
+                app:iconPadding="8dp"
+                app:iconTint="@color/white"
+                android:backgroundTint="#1C4067" />
+
+            <Button
+                android:id="@+id/submit_emergency"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:text="Submit"
+                android:radius="50dp"
+                app:cornerRadius="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                android:backgroundTint="#1C4067"
+                android:textColor="#FFFFFF"/>
+
+            <TextView
+                android:layout_width="360dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="24dp"
+                android:textAlignment="center"
                 android:textSize="14dp"
-                android:background="@null"/>
+                android:text="Your information will be kept confidential."
+                android:textStyle="italic"/>
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/streetlabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Street"
-        android:layout_marginLeft="30dp"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        android:textStyle="bold" />
-
-    <!-- Street  -->
-    <androidx.cardview.widget.CardView
-        android:layout_width="350dp"
-        android:layout_height="50dp"
-        app:cardBackgroundColor="@color/white"
-        app:cardElevation="2dp"
-        android:radius="250dp"
-        app:cardCornerRadius="25dp"
-        app:strokeColor="@color/black"
-        app:strokeWidth="1dp"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center">
-
+        <!--NON EMERGENCY SECTION-->
         <LinearLayout
+            android:id="@+id/non_emergency_section"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:padding="10dp">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="2dp"
+            android:paddingBottom="50dp"
+            tools:ignore="UseSwitchCompatOrMaterialXml"
+            android:visibility="gone">
 
+            <TextView
+                android:layout_width="360dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="24dp"
+                android:textSize="14dp"
+                android:text="Please fill out the form below to report your issue."
+                android:textAlignment="center"
+                android:textStyle="italic"/>
 
-            <AutoCompleteTextView
-                android:id="@+id/street"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Type your street"
-                android:padding="3dp"
-                android:textSize="14dp"
-                android:background="@null"/>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                android:paddingLeft="30dp"
+                android:paddingEnd="30dp">
 
-    <!-- House/Unit  -->
+                <TextView
+                    android:id="@+id/adress_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Address"
+                    android:textColor="@color/black"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/houseunitlabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="House No./Unit No."
-        android:layout_marginLeft="30dp"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        android:textStyle="bold" />
+                <Switch
+                    android:id="@+id/switchAnonymous"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:text="Anonymous"
+                    android:checked="false"
+                    android:layout_gravity="center_vertical"/>
+            </LinearLayout>
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="350dp"
-        android:layout_height="50dp"
-        app:cardBackgroundColor="@color/white"
-        app:cardElevation="2dp"
-        android:radius="250dp"
-        app:cardCornerRadius="25dp"
-        app:strokeColor="@color/black"
-        app:strokeWidth="1dp"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:padding="10dp">
-
-            <AutoCompleteTextView
-                android:id="@+id/houseunit"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/sitio_subdivision"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Type your House / Unit"
-                android:padding="3dp"
-                android:textSize="14dp"
-                android:background="@null"/>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+                android:layout_marginTop="0dp"
+                android:text="Sitio/Subdivision"
+                android:layout_marginLeft="30dp"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
-    <!-- Complain Details -->
-    <TextView
-        android:id="@+id/complaindetails_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="Complain Details"
-        android:layout_marginLeft="20dp"
-        android:textColor="@color/black"
-        android:textSize="25sp"
-        android:textStyle="bold" />
+            <!-- Sitio Subdivision -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardElevation="2dp"
+                android:radius="250dp"
+                app:cardCornerRadius="10dp"
+                app:strokeColor="@color/black"
+                android:layout_marginTop="10dp"
+                app:strokeWidth="1dp"
+                android:layout_gravity="center">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/sitioSubdivisionAutoComplete"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Type Sitio/Subdivision"
+                        android:padding="3dp"
+                        android:textSize="14dp"
+                        android:background="@null"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/streetlabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Street"
+                android:layout_marginLeft="30dp"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <!-- Street  -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardElevation="2dp"
+                android:radius="250dp"
+                app:cardCornerRadius="10dp"
+                app:strokeColor="@color/black"
+                app:strokeWidth="1dp"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+
+                    <AutoCompleteTextView
+                        android:id="@+id/street"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Type your street"
+                        android:padding="3dp"
+                        android:textSize="14dp"
+                        android:background="@null"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- House/Unit  -->
+
+            <TextView
+                android:id="@+id/houseunitlabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="House No./Unit No."
+                android:layout_marginLeft="30dp"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardElevation="2dp"
+                android:radius="250dp"
+                app:cardCornerRadius="10dp"
+                app:strokeColor="@color/black"
+                app:strokeWidth="1dp"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/houseunit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Type your House / Unit"
+                        android:padding="3dp"
+                        android:textSize="14dp"
+                        android:background="@null"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Complain Details -->
+            <TextView
+                android:id="@+id/complaindetails_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="Complain Details"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/committee_involve"
@@ -232,73 +428,70 @@
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="220dp"
-            android:layout_height="40dp"
-            app:cardBackgroundColor="@color/white"
-            app:cardElevation="2dp"
-            android:radius="250dp"
-            app:cardCornerRadius="25dp"
-            app:strokeColor="@color/black"
-            android:layout_marginTop="-30dp"
-            android:layout_marginLeft="60dp"
-            app:strokeWidth="1dp"
-            android:layout_gravity="center">
+            <androidx.cardview.widget.CardView
+                android:layout_width="220dp"
+                android:layout_height="40dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardElevation="2dp"
+                android:radius="250dp"
+                app:cardCornerRadius="10dp"
+                app:strokeColor="@color/black"
+                android:layout_marginTop="-30dp"
+                android:layout_marginLeft="60dp"
+                app:strokeWidth="1dp"
+                android:layout_gravity="center">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:padding="10dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <Spinner
+                        android:id="@+id/committee"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="1dp"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
 
-            <Spinner
-                android:id="@+id/committee"
-                android:layout_width="match_parent"
+
+            <TextView
+                android:id="@+id/complain_label"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="1dp"/>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+                android:layout_marginTop="20dp"
+                android:text="Complain:"
+                android:layout_marginLeft="30dp"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
+            <androidx.cardview.widget.CardView
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardElevation="2dp"
+                android:radius="250dp"
+                app:cardCornerRadius="10dp"
+                app:strokeColor="@color/black"
+                android:layout_marginTop="10dp"
+                app:strokeWidth="1dp"
+                android:layout_gravity="center">
 
-
-    <TextView
-        android:id="@+id/complain_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Complain:"
-        android:layout_marginLeft="30dp"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        android:textStyle="bold" />
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="350dp"
-        android:layout_height="50dp"
-        app:cardBackgroundColor="@color/white"
-        app:cardElevation="2dp"
-        android:radius="250dp"
-        app:cardCornerRadius="25dp"
-        app:strokeColor="@color/black"
-        android:layout_marginTop="10dp"
-        app:strokeWidth="1dp"
-        android:layout_gravity="center">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:padding="10dp">
-
-
-            <Spinner
-                android:id="@+id/complaint"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="2dp"/>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+                    <Spinner
+                        android:id="@+id/complaint"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
             <!-- Description of the Complaint -->
             <TextView
@@ -318,7 +511,7 @@
                 app:cardBackgroundColor="@color/white"
                 app:cardElevation="2dp"
                 android:radius="200dp"
-                app:cardCornerRadius="25dp"
+                app:cardCornerRadius="10dp"
                 app:strokeColor="@color/black"
                 android:layout_marginTop="10dp"
                 app:strokeWidth="1dp"
@@ -358,7 +551,7 @@
                 android:layout_height="40dp"
                 app:cardBackgroundColor="@color/white"
                 app:cardElevation="2dp"
-                app:cardCornerRadius="25dp"
+                app:cardCornerRadius="10dp"
                 app:strokeColor="@color/black"
                 android:layout_marginTop="-30dp"
                 android:layout_marginLeft="60dp"
@@ -402,7 +595,7 @@
                 android:layout_height="40dp"
                 app:cardBackgroundColor="@color/white"
                 app:cardElevation="2dp"
-                app:cardCornerRadius="25dp"
+                app:cardCornerRadius="10dp"
                 app:strokeColor="@color/black"
                 android:layout_marginTop="-30dp"
                 android:layout_marginLeft="60dp"
@@ -464,35 +657,27 @@
             <ImageView
                 android:id="@+id/imagePreview"
                 android:layout_width="380dp"
-                android:layout_height="250dp"
-                android:layout_marginLeft="13dp"
+                android:layout_height="640dp"
                 android:layout_marginTop="12dp"
-                android:scaleType="centerCrop"
+                android:scaleType="fitCenter"
                 android:contentDescription="Photo Preview" />
 
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnTakePhoto"
                 android:layout_width="380dp"
                 android:layout_height="50dp"
                 android:text="Take a Photo"
-                android:radius="50dp"
-                app:cornerRadius="50dp"
+                android:textColor="#FFFFFF"
                 android:layout_marginTop="5dp"
                 android:layout_gravity="center"
-                android:backgroundTint="#1C4067"
-                android:textColor="#FFFFFF"/>
+                app:cornerRadius="50dp"
+                app:icon="@drawable/ic_camera"
+                app:iconGravity="textStart"
+                app:iconPadding="8dp"
+                app:iconTint="@color/white"
+                android:backgroundTint="#1C4067"/>
 
-            <Switch
-                android:id="@+id/switchAnonymous"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="15dp"
-                android:textSize="16dp"
-                android:textStyle="bold"
-                android:text="Anonymous"
-                android:checked="false"/>
 
             <Button
                 android:id="@+id/submit"
@@ -517,5 +702,8 @@
                 android:textStyle="italic"/>
 
         </LinearLayout>
+
+    </LinearLayout>
+
     </ScrollView>
 </FrameLayout>

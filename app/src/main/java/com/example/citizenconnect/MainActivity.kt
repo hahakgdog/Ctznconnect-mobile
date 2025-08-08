@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.home -> setCurrentFragment(homeFragment)
                 R.id.hotlines -> setCurrentFragment(hotlinesFragment)
-                R.id.announcement -> setCurrentFragment(announcementFragment)
+                R.id.working -> setCurrentFragment(announcementFragment)
                 R.id.notification -> setCurrentFragment(notificationFragment)
             }
             true

@@ -8,7 +8,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 
-class Home : Fragment() {
+class workinghome : Fragment() {
 
     private lateinit var tabComplaints: TextView
     private lateinit var tabAnnouncements: TextView
@@ -19,7 +19,7 @@ class Home : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_home, container, false)
+        val view = inflater.inflate(R.layout.fragment_workinghome, container, false)
 
         // Initialize views
         tabComplaints = view.findViewById(R.id.tabComplaints)

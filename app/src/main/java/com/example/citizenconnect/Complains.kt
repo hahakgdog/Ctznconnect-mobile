@@ -13,9 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -26,12 +24,14 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import android.Manifest
 import android.util.Log
-
-
 import java.util.*
 
 class Complains : Fragment(), OnMapReadyCallback {
 
+    private lateinit var tabEmergency: TextView
+    private lateinit var tabNon_emergency: TextView
+    private lateinit var emergency_section: LinearLayout
+    private lateinit var non_emergency_section: LinearLayout
     private lateinit var mapView: MapView
     private lateinit var googleMap: GoogleMap
     private lateinit var imagePreview: ImageView
@@ -51,8 +51,7 @@ class Complains : Fragment(), OnMapReadyCallback {
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
-                Toast.makeText(requireContext(), "Failed to capture image.", Toast.LENGTH_SHORT)
-                    .show()
+                Toast.makeText(requireContext(), "Failed to capture image.", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -72,6 +71,19 @@ class Complains : Fragment(), OnMapReadyCallback {
         mapView = view.findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
+
+        // --- Tab setup ---
+        tabEmergency = view.findViewById(R.id.tabUrgent)
+        tabNon_emergency = view.findViewById(R.id.tabNonUrgent)
+        emergency_section = view.findViewById(R.id.emergency_section)
+        non_emergency_section = view.findViewById(R.id.non_emergency_section)
+
+        // Default selection
+        selectTab("Urgent")
+
+        // Tab click listeners
+        tabEmergency.setOnClickListener { selectTab("Urgent") }
+        tabNon_emergency.setOnClickListener { selectTab("Non-Urgent") }
 
         // --- UI setup ---
         imagePreview = view.findViewById(R.id.imagePreview)
@@ -129,12 +141,30 @@ class Complains : Fragment(), OnMapReadyCallback {
                 requireContext(),
                 android.R.layout.simple_spinner_dropdown_item,
                 listOf(
-                    "Choose",
+                    "Select Problem",
                     "Garbage not collected on schedule",
                     "Illegal dumping of trash in open areas or waterways",
                     "Absence of recycling facilities or bins",
                     "Foul odor from accumulated waste",
                     "Burning of garbage causing smoke pollution",
+                    "Others"
+                )
+            )
+            this.adapter = adapter
+            this.setSelection(0)
+        }
+
+        view.findViewById<Spinner>(R.id.emergency_complain)?.apply {
+            val adapter = ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_spinner_dropdown_item,
+                listOf(
+                    "Select Problem",
+                    "Public intoxication causing trouble",
+                    "Loitering of minors during curfew hours",
+                    "Noise complaints from late-night gatherings or karaoke",
+                    "Street fights or disturbances in public areas",
+                    "Reports of theft, vandalism or trespassing",
                     "Others"
                 )
             )
@@ -152,11 +182,9 @@ class Complains : Fragment(), OnMapReadyCallback {
             DatePickerDialog(
                 requireContext(),
                 { _, year, month, dayOfMonth ->
-                    // Format the date as DD/MM/YYYY
                     val formattedDate = String.format("%02d/%02d/%04d", dayOfMonth, month + 1, year)
-                    // Log the selected date
                     Log.d("DatePicker", "Selected date: $formattedDate")
-                    datePicker.setText(formattedDate)  // Set the selected date in the EditText
+                    datePicker.setText(formattedDate)
                 },
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
@@ -170,11 +198,9 @@ class Complains : Fragment(), OnMapReadyCallback {
             TimePickerDialog(
                 requireContext(),
                 { _, hourOfDay, minute ->
-                    // Format the time as HH:mm
                     val formattedTime = String.format("%02d:%02d", hourOfDay, minute)
-                    // Log the selected time
                     Log.d("TimePicker", "Selected time: $formattedTime")
-                    timePicker.setText(formattedTime)  // Set the selected time in the EditText
+                    timePicker.setText(formattedTime)
                 },
                 calendar.get(Calendar.HOUR_OF_DAY),
                 calendar.get(Calendar.MINUTE),
@@ -182,16 +208,46 @@ class Complains : Fragment(), OnMapReadyCallback {
             ).show()
         }
 
-
-
-    // --- Anonymous Switch Logic ---
+        // --- Anonymous Switch Logic ---
         val switchAnonymous = view.findViewById<Switch>(R.id.switchAnonymous)
-
         switchAnonymous.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 Toast.makeText(requireContext(), "Anonymous mode ON", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(requireContext(), "Anonymous mode OFF", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun selectTab(tab: String) {
+        when (tab) {
+            "Urgent" -> {
+                tabEmergency.setBackgroundResource(R.drawable.tab_urgent)
+                tabNon_emergency.setBackgroundResource(R.drawable.tab_nonurgentdim)
+                tabEmergency.setTextColor(resources.getColor(R.color.whitey))
+                tabNon_emergency.setTextColor(resources.getColor(R.color.white_dim))
+
+                // Overlap effect: bring selected tab to front
+                tabEmergency.bringToFront()
+                tabEmergency.elevation = 8f
+                tabNon_emergency.elevation = 0f
+
+                emergency_section.visibility = View.VISIBLE
+                non_emergency_section.visibility = View.GONE
+            }
+            "Non-Urgent" -> {
+                tabEmergency.setBackgroundResource(R.drawable.tab_urgentdim)
+                tabNon_emergency.setBackgroundResource(R.drawable.tab_nonurgent)
+                tabEmergency.setTextColor(resources.getColor(R.color.white_dim))
+                tabNon_emergency.setTextColor(resources.getColor(R.color.whitey))
+
+                // Overlap effect: bring selected tab to front
+                tabNon_emergency.bringToFront()
+                tabNon_emergency.elevation = 8f
+                tabEmergency.elevation = 0f
+
+                emergency_section.visibility = View.GONE
+                non_emergency_section.visibility = View.VISIBLE
             }
         }
     }
@@ -212,7 +268,6 @@ class Complains : Fragment(), OnMapReadyCallback {
         }
     }
 
-    // --- Handling Permission Request Result ---
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -262,4 +317,5 @@ class Complains : Fragment(), OnMapReadyCallback {
         super.onLowMemory()
         mapView.onLowMemory()
     }
+
 }
