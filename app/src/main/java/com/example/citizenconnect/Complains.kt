@@ -6,24 +6,29 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import android.Manifest
-import android.util.Log
+import java.io.File
+import java.io.IOException
 import java.util.*
 
 class Complains : Fragment(), OnMapReadyCallback {
@@ -35,24 +40,30 @@ class Complains : Fragment(), OnMapReadyCallback {
     private lateinit var mapView: MapView
     private lateinit var googleMap: GoogleMap
     private lateinit var imagePreview: ImageView
+    private lateinit var imagePreviewEmergency: ImageView
+    private lateinit var btnTakePhoto_emergency: Button
     private lateinit var btnTakePhoto: Button
+    private var currentImagePreview: ImageView? = null
+    private var photoUri: Uri? = null
+    private var nonEmergencyPhotoUri: Uri? = null
+    private var emergencyPhotoUri: Uri? = null
 
     private val takePictureLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
-            try {
-                val imageBitmap = result.data?.extras?.get("data") as? Bitmap
-                if (imageBitmap != null) {
-                    imagePreview.setImageBitmap(imageBitmap)
+            photoUri?.let { uri ->
+                if (currentImagePreview != null) {
+                    Glide.with(this)
+                        .load(uri)
+                        .centerCrop()
+                        .into(currentImagePreview!!)
+                    currentImagePreview!!.visibility = View.VISIBLE
                     Toast.makeText(requireContext(), "Photo captured!", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(requireContext(), "Image is null", Toast.LENGTH_SHORT).show()
                 }
-            } catch (e: Exception) {
-                e.printStackTrace()
-                Toast.makeText(requireContext(), "Failed to capture image.", Toast.LENGTH_SHORT).show()
             }
+        } else {
+            Toast.makeText(requireContext(), "Failed to capture image.", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -72,27 +83,53 @@ class Complains : Fragment(), OnMapReadyCallback {
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
 
-        // --- Tab setup ---
-        tabEmergency = view.findViewById(R.id.tabUrgent)
-        tabNon_emergency = view.findViewById(R.id.tabNonUrgent)
-        emergency_section = view.findViewById(R.id.emergency_section)
-        non_emergency_section = view.findViewById(R.id.non_emergency_section)
+        val btnEmergency = view.findViewById<TextView>(R.id.btnEmergency)
+        val btnNonEmergency = view.findViewById<TextView>(R.id.btnNonEmergency)
+        val emergencySection = view.findViewById<LinearLayout>(R.id.emergency_section)
+        val nonEmergencySection = view.findViewById<LinearLayout>(R.id.non_emergency_section)
 
-        // Default selection
-        selectTab("Urgent")
+        btnEmergency.setOnClickListener {
+            btnEmergency.setBackgroundResource(R.drawable.toggle_selected_background_red)
+            btnEmergency.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
 
-        // Tab click listeners
-        tabEmergency.setOnClickListener { selectTab("Urgent") }
-        tabNon_emergency.setOnClickListener { selectTab("Non-Urgent") }
+            btnNonEmergency.setBackgroundResource(R.drawable.toggle_unselected_background)
+            btnNonEmergency.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+
+            emergencySection.visibility = View.VISIBLE
+            nonEmergencySection.visibility = View.GONE
+        }
+
+        btnNonEmergency.setOnClickListener {
+            btnNonEmergency.setBackgroundResource(R.drawable.toggle_selected_background)
+            btnNonEmergency.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+
+            btnEmergency.setBackgroundResource(R.drawable.toggle_unselected_background)
+            btnEmergency.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+
+            emergencySection.visibility = View.GONE
+            nonEmergencySection.visibility = View.VISIBLE
+        }
 
         // --- UI setup ---
         imagePreview = view.findViewById(R.id.imagePreview)
         btnTakePhoto = view.findViewById(R.id.btnTakePhoto)
+        imagePreviewEmergency = view.findViewById(R.id.imagePreviewEmergency)
+        btnTakePhoto_emergency = view.findViewById(R.id.btnTakePhoto_emergency)
 
         btnTakePhoto.setOnClickListener {
-            checkCameraPermissionAndTakePhoto()
+            checkCameraPermissionAndTakePhoto(imagePreview)
+        }
+        btnTakePhoto_emergency.setOnClickListener {
+            checkCameraPermissionAndTakePhoto(imagePreviewEmergency)
         }
 
+        imagePreview.setOnClickListener {
+            nonEmergencyPhotoUri?.let { uri -> showFullImage(uri) }
+        }
+
+        imagePreviewEmergency.setOnClickListener {
+            emergencyPhotoUri?.let { uri -> showFullImage(uri) }
+        }
         // --- AutoComplete TextView Setup for Sitio and Streets ---
         val sitioSubdivisionList = listOf(
             "Sitio Kamias", "Francis Ville", "Josefina Subdivision",
@@ -218,53 +255,83 @@ class Complains : Fragment(), OnMapReadyCallback {
             }
         }
     }
+    fun showFullImage(uri: Uri) {
+        val builder = AlertDialog.Builder(requireContext())
+        val inflater = layoutInflater
+        val dialogView = inflater.inflate(R.layout.dialog_fullscreen_image, null)
+        val fullImageView = dialogView.findViewById<ImageView>(R.id.fullscreenImageView)
+        Glide.with(this)
+            .load(uri)  // Use actual Uri here
+            .fitCenter()
+            .into(fullImageView)
+        builder.setView(dialogView)
+        val dialog = builder.create()
+        dialog.show()
 
-    private fun selectTab(tab: String) {
-        when (tab) {
-            "Urgent" -> {
-                tabEmergency.setBackgroundResource(R.drawable.tab_urgent)
-                tabNon_emergency.setBackgroundResource(R.drawable.tab_nonurgentdim)
-                tabEmergency.setTextColor(resources.getColor(R.color.whitey))
-                tabNon_emergency.setTextColor(resources.getColor(R.color.white_dim))
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.window?.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
+        )
+    }
 
-                // Overlap effect: bring selected tab to front
-                tabEmergency.bringToFront()
-                tabEmergency.elevation = 8f
-                tabNon_emergency.elevation = 0f
 
-                emergency_section.visibility = View.VISIBLE
-                non_emergency_section.visibility = View.GONE
+    private fun checkCameraPermissionAndTakePhoto(targetImageView: ImageView) {
+        currentImagePreview = targetImageView
+        if (ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.CAMERA)
+            == PackageManager.PERMISSION_GRANTED
+        ) {
+            val photoFile = createImageFile()
+            photoFile?.let {
+                val uri = FileProvider.getUriForFile(
+                    requireContext(),
+                    requireContext().packageName + ".fileprovider",
+                    it
+                )
+                photoUri = uri
+                // Save uri for emergency or non-emergency
+                if (targetImageView == imagePreview) {
+                    nonEmergencyPhotoUri = uri
+                } else if (targetImageView == imagePreviewEmergency) {
+                    emergencyPhotoUri = uri
+                }
+
+                Log.d("Camera", "Launching camera with Uri: $uri")
+
+                val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
+                takePictureIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION)
+
+                // Grant URI permission to all camera apps
+                val resInfoList = requireActivity().packageManager.queryIntentActivities(takePictureIntent, PackageManager.MATCH_DEFAULT_ONLY)
+                for (resolveInfo in resInfoList) {
+                    val packageName = resolveInfo.activityInfo.packageName
+                    requireContext().grantUriPermission(packageName, uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                }
+
+                if (takePictureIntent.resolveActivity(requireActivity().packageManager) != null) {
+                    takePictureLauncher.launch(takePictureIntent)
+                } else {
+                    Toast.makeText(requireContext(), "No camera app found.", Toast.LENGTH_SHORT).show()
+                }
             }
-            "Non-Urgent" -> {
-                tabEmergency.setBackgroundResource(R.drawable.tab_urgentdim)
-                tabNon_emergency.setBackgroundResource(R.drawable.tab_nonurgent)
-                tabEmergency.setTextColor(resources.getColor(R.color.white_dim))
-                tabNon_emergency.setTextColor(resources.getColor(R.color.whitey))
-
-                // Overlap effect: bring selected tab to front
-                tabNon_emergency.bringToFront()
-                tabNon_emergency.elevation = 8f
-                tabEmergency.elevation = 0f
-
-                emergency_section.visibility = View.GONE
-                non_emergency_section.visibility = View.VISIBLE
-            }
+        } else {
+            requestPermissions(arrayOf(android.Manifest.permission.CAMERA), 101)
         }
     }
 
-    // --- Camera Permission and Capture Photo Logic ---
-    private fun checkCameraPermissionAndTakePhoto() {
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
-            == PackageManager.PERMISSION_GRANTED
-        ) {
-            val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            if (takePictureIntent.resolveActivity(requireActivity().packageManager) != null) {
-                takePictureLauncher.launch(takePictureIntent)
-            } else {
-                Toast.makeText(requireContext(), "No camera app found.", Toast.LENGTH_SHORT).show()
-            }
-        } else {
-            requestPermissions(arrayOf(Manifest.permission.CAMERA), 101)
+    @Throws(IOException::class)
+    private fun createImageFile(): File? {
+        val storageDir = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        return try {
+            File.createTempFile(
+                "JPEG_${System.currentTimeMillis()}_",
+                ".jpg",
+                storageDir
+            )
+        } catch (ex: IOException) {
+            ex.printStackTrace()
+            null
         }
     }
 
@@ -277,16 +344,15 @@ class Complains : Fragment(), OnMapReadyCallback {
         if (requestCode == 101 && grantResults.isNotEmpty() &&
             grantResults[0] == PackageManager.PERMISSION_GRANTED
         ) {
-            val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            if (takePictureIntent.resolveActivity(requireActivity().packageManager) != null) {
-                takePictureLauncher.launch(takePictureIntent)
+            // Retry photo capture after permission granted
+            currentImagePreview?.let {
+                checkCameraPermissionAndTakePhoto(it)
             }
         } else {
             Toast.makeText(requireContext(), "Camera permission denied.", Toast.LENGTH_SHORT).show()
         }
     }
 
-    // --- MapView Setup ---
     override fun onMapReady(map: GoogleMap) {
         googleMap = map
         val mambugan = LatLng(14.6323, 121.1026)
@@ -297,7 +363,6 @@ class Complains : Fragment(), OnMapReadyCallback {
         googleMap.uiSettings.isZoomGesturesEnabled = false
     }
 
-    // --- MapView Lifecycle ---
     override fun onResume() {
         super.onResume()
         mapView.onResume()
@@ -317,5 +382,4 @@ class Complains : Fragment(), OnMapReadyCallback {
         super.onLowMemory()
         mapView.onLowMemory()
     }
-
 }

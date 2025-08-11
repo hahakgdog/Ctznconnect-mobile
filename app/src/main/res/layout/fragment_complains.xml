@@ -60,34 +60,46 @@
         tools:ignore="UseSwitchCompatOrMaterialXml">
 
         <FrameLayout
-            android:layout_width="wrap_content"
+            android:layout_width="370dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="65dp">
 
-            <TextView
-                android:id="@+id/tabUrgent"
-                android:layout_width="240dp"
-                android:layout_height="42dp"
-                android:layout_marginEnd="-20dp"
-                android:gravity="center"
-                android:text="Urgent"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:background="@drawable/tab_urgent"
-                android:textColor="@android:color/white" />
-
-            <TextView
-                android:id="@+id/tabNonUrgent"
-                android:layout_width="240dp"
+            <RadioGroup
+                android:id="@+id/toggleGroup"
+                android:layout_width="370dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="140dp"
-                android:gravity="center"
-                android:text="Non-Urgent"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:background="@drawable/tab_nonurgent"
-                android:textColor="@android:color/white" />
+                android:orientation="horizontal"
+                android:background="@drawable/toggle_background"
+                android:padding="2dp">
+
+                <RadioButton
+                    android:id="@+id/btnEmergency"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/toggle_selected_background_red"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="EMERGENCY"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:checked="true"
+                    android:textSize="12sp" />
+
+                <RadioButton
+                    android:id="@+id/btnNonEmergency"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/toggle_unselected_background"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="NON-EMERGENCY"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="12sp" />
+            </RadioGroup>
         </FrameLayout>
 
         <LinearLayout
@@ -181,12 +193,13 @@
 
             <ImageView
                 android:id="@+id/imagePreviewEmergency"
-                android:layout_width="380dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="13dp"
-                android:layout_marginTop="12dp"
+                android:maxHeight="400dp"
+                android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
-                android:contentDescription="Photo Preview" />
+                android:contentDescription="Photo Preview"
+                android:layout_marginTop="12dp" />
 
 
             <com.google.android.material.button.MaterialButton
@@ -656,11 +669,14 @@
 
             <ImageView
                 android:id="@+id/imagePreview"
-                android:layout_width="380dp"
-                android:layout_height="640dp"
-                android:layout_marginTop="12dp"
-                android:scaleType="fitCenter"
-                android:contentDescription="Photo Preview" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:maxHeight="400dp"
+                android:contentDescription="Photo Preview"
+                android:layout_marginLeft="13dp"
+                android:layout_marginTop="12dp" />
 
 
             <com.google.android.material.button.MaterialButton
