@@ -6,6 +6,7 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -14,11 +15,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -33,10 +36,6 @@ import java.util.*
 
 class Complains : Fragment(), OnMapReadyCallback {
 
-    private lateinit var tabEmergency: TextView
-    private lateinit var tabNon_emergency: TextView
-    private lateinit var emergency_section: LinearLayout
-    private lateinit var non_emergency_section: LinearLayout
     private lateinit var mapView: MapView
     private lateinit var googleMap: GoogleMap
     private lateinit var imagePreview: ImageView
@@ -87,28 +86,50 @@ class Complains : Fragment(), OnMapReadyCallback {
         val btnNonEmergency = view.findViewById<TextView>(R.id.btnNonEmergency)
         val emergencySection = view.findViewById<LinearLayout>(R.id.emergency_section)
         val nonEmergencySection = view.findViewById<LinearLayout>(R.id.non_emergency_section)
+        val toggleGroup = view.findViewById<RadioGroup>(R.id.toggleGroup)
 
-        btnEmergency.setOnClickListener {
-            btnEmergency.setBackgroundResource(R.drawable.toggle_selected_background_red)
-            btnEmergency.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+        // Slider view — create a view in your XML above the buttons
+        val sliderView = view.findViewById<View>(R.id.sliderView)
+        val sliderBackground = sliderView.background.mutate()
 
-            btnNonEmergency.setBackgroundResource(R.drawable.toggle_unselected_background)
-            btnNonEmergency.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-
-            emergencySection.visibility = View.VISIBLE
-            nonEmergencySection.visibility = View.GONE
+        sliderView.post {
+            sliderView.layoutParams.width = btnEmergency.width
+            sliderView.x = toggleGroup.left.toFloat()   // not 0f
+            sliderView.requestLayout()
+            btnEmergency.setTextColor(Color.WHITE)
         }
 
-        btnNonEmergency.setOnClickListener {
-            btnNonEmergency.setBackgroundResource(R.drawable.toggle_selected_background)
-            btnNonEmergency.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+        fun selectTab(tab: String) {
+            val targetX = when (tab) {
+                "Emergency"    -> toggleGroup.left.toFloat()
+                "NonEmergency" -> (toggleGroup.left + btnNonEmergency.left).toFloat()
+                else           -> toggleGroup.left.toFloat()
+            }
 
-            btnEmergency.setBackgroundResource(R.drawable.toggle_unselected_background)
-            btnEmergency.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+            sliderView.animate()
+                .x(targetX)
+                .setDuration(250)
+                .setInterpolator(AccelerateDecelerateInterpolator())
+                .start()
 
-            emergencySection.visibility = View.GONE
-            nonEmergencySection.visibility = View.VISIBLE
+            if (tab == "Emergency") {
+                DrawableCompat.setTint(sliderBackground, Color.parseColor("#ef4136"))
+                emergencySection.visibility = View.VISIBLE
+                nonEmergencySection.visibility = View.GONE
+                btnEmergency.setTextColor(Color.WHITE)
+                btnNonEmergency.setTextColor(Color.BLACK)
+            } else {
+                DrawableCompat.setTint(sliderBackground, Color.parseColor("#1A237E"))
+                emergencySection.visibility = View.GONE
+                nonEmergencySection.visibility = View.VISIBLE
+                btnEmergency.setTextColor(Color.BLACK)
+                btnNonEmergency.setTextColor(Color.WHITE)
+            }
         }
+
+
+        btnEmergency.setOnClickListener { selectTab("Emergency") }
+        btnNonEmergency.setOnClickListener { selectTab("NonEmergency") }
 
         // --- UI setup ---
         imagePreview = view.findViewById(R.id.imagePreview)

@@ -60,47 +60,55 @@
         tools:ignore="UseSwitchCompatOrMaterialXml">
 
         <FrameLayout
-            android:layout_width="370dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="65dp">
+            android:id="@+id/radioContainer"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="70dp"
+            android:background="@drawable/toggle_background"
+            android:padding="4dp"
+            android:layout_gravity="center"
+            android:maxWidth="370dp">
+        <!-- Slider highlight -->
+        <View
+            android:id="@+id/sliderView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/tab_urgent" />
 
-            <RadioGroup
-                android:id="@+id/toggleGroup"
-                android:layout_width="370dp"
-                android:layout_height="40dp"
-                android:orientation="horizontal"
-                android:background="@drawable/toggle_background"
-                android:padding="2dp">
+        <!-- Buttons group -->
+        <RadioGroup
+            android:id="@+id/toggleGroup"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center">
 
-                <RadioButton
-                    android:id="@+id/btnEmergency"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/toggle_selected_background_red"
-                    android:button="@null"
-                    android:gravity="center"
-                    android:text="EMERGENCY"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:checked="true"
-                    android:textSize="12sp" />
+            <RadioButton
+                android:id="@+id/btnEmergency"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:button="@null"
+                android:gravity="center"
+                android:text="EMERGENCY"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
-                <RadioButton
-                    android:id="@+id/btnNonEmergency"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/toggle_unselected_background"
-                    android:button="@null"
-                    android:gravity="center"
-                    android:text="NON-EMERGENCY"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:textSize="12sp" />
-            </RadioGroup>
-        </FrameLayout>
+            <RadioButton
+                android:id="@+id/btnNonEmergency"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:button="@null"
+                android:gravity="center"
+                android:text="NON-EMERGENCY"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+        </RadioGroup>
+    </FrameLayout>
+
 
         <LinearLayout
             android:id="@+id/emergency_section"
